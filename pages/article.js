@@ -24,7 +24,7 @@ export default function Articles(props) {
                 {
                     data.map((item, idx) => {
                         if (item.articleShowStyle === '1') {
-                            return <li key={item.id}><Link href="/article/[articleId]" as={`/article/${item.id}`}><a>{idx + 1}. <img className='cover' src={item.coverImagesList[0].url} /> {item.contentTitle}</a></Link></li>
+                            return <li key={item.id}><Link href="/article/[articleId]" as={`/article/${item.id}`}><a><span className='label'>{idx + 1}.</span> <img className='cover' src={item.coverImagesList[0].url} /> {item.contentTitle}</a></Link></li>
                         }
 
                     })
@@ -40,9 +40,14 @@ export default function Articles(props) {
                 }
                 .cover{
                     margin:0 4px;
+                    width:150px;
+                }
+                .label{
+                    flex:0 0 30px;
                 }
                 a{
                     display:flex;
+                    font-size:16px;
 
                 }
             `}</style>
