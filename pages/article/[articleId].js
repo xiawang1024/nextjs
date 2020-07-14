@@ -33,7 +33,7 @@ export default function Article({ data }) {
 //     }
 // }
 export async function getStaticProps({ params }) {
-    const res = await fetch(`https://pubmob.dianzhenkeji.com/cms/articlewithrelated?articleId=${params.articleId}&tenantId=hnr`)
+    const res = await fetch(`https://pubmob.dianzhenkeji.com/cms/articlewithrelated?articleId=${params.articleId}&tenantId=DXNews`)
     const { result } = await res.json()
 
     return {
@@ -43,7 +43,7 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-    const res = await fetch('https://pubmob.dianzhenkeji.com/cms/articles?tenantId=hnr&channelId=1188657936537358336&pageNo=1&pageSize=10')
+    const res = await fetch('https://pubmob.dianzhenkeji.com/cms/articles?tenantId=DXNews&channelId=1161446515919687680&pageNo=1&pageSize=20')
     const { result } = await res.json()
 
 

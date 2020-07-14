@@ -1,7 +1,7 @@
 import Link from 'next/link'
-import { useState } from 'react'
 import useSWR from 'swr'
-const URL = 'https://pubmob.dianzhenkeji.com/cms/articles?tenantId=hnr&channelId=1188657936537358336&pageNo=1&pageSize=10'
+// const URL = 'https://pubmob.dianzhenkeji.com/cms/articles?tenantId=DXNews&channelId=1161446515919687680&pageNo=1&pageSize=20'
+const URL = 'http://localhost:8080/api'
 
 const fetcher = async (url) => {
     const res = await fetch(url)
@@ -14,10 +14,7 @@ const fetcher = async (url) => {
 }
 
 export default function Articles(props) {
-    const [count, setCount] = useState(0)
-    function handClick() {
-        setCount(count + 1)
-    }
+
 
     const { data, error } = useSWR(URL, fetcher, { initialData: props.data })
 
@@ -25,16 +22,32 @@ export default function Articles(props) {
         <div>
             <ul>
                 {
-                    data.map(item => <li key={item.id}><Link href="/article/[articleId]" as={`/article/${item.id}`}><a>{item.contentTitle}</a></Link></li>)
+                    data.map((item, idx) => {
+                        if (item.articleShowStyle === '1') {
+                            return <li key={item.id}><Link href="/article/[articleId]" as={`/article/${item.id}`}><a>{idx + 1}. <img className='cover' src={item.coverImagesList[0].url} /> {item.contentTitle}</a></Link></li>
+                        }
+
+                    })
                 }
                 <style jsx>{`
+                ul{
+                    padding:0;
+                }
                 li{
-                    line-height:2;
+                    margin-bottom:20px;
+                    line-height:1.5;
+                    list-style:none;
+                }
+                .cover{
+                    margin:0 4px;
+                }
+                a{
+                    display:flex;
+
                 }
             `}</style>
             </ul>
 
-            <button onClick={handClick}>点击{count}</button>
         </div>
 
     )
@@ -57,7 +70,7 @@ export default function Articles(props) {
  * ssg
  */
 export async function getStaticProps() {
-    const res = await fetch('https://pubmob.dianzhenkeji.com/cms/articles?tenantId=hnr&channelId=1188657936537358336&pageNo=1&pageSize=10')
+    const res = await fetch(URL)
     const { result } = await res.json()
     return {
         props: {
