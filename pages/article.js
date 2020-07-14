@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import useSWR from 'swr'
-// const URL = 'https://pubmob.dianzhenkeji.com/cms/articles?tenantId=DXNews&channelId=1161446515919687680&pageNo=1&pageSize=20'
-const URL = 'http://localhost:8080/api'
+const URL = 'https://pubmob.dianzhenkeji.com/cms/articles?tenantId=DXNews&channelId=1161446515919687680&pageNo=1&pageSize=20'
+// const URL = 'http://localhost:8080/api'
 
 const fetcher = async (url) => {
     const res = await fetch(url)
